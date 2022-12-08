@@ -29,9 +29,11 @@
 function getFizzBuzz(num) {
   if (num % 5 === 0 && num % 3 === 0) {
     return 'FizzBuzz';
-  } if (num % 3 === 0) {
+  }
+  if (num % 3 === 0) {
     return 'Fizz';
-  } if (num % 5 === 0) {
+  }
+  if (num % 5 === 0) {
     return 'Buzz';
   }
   return num;
@@ -49,9 +51,8 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-  return (n !== 1) ? n * getFactorial(n - 1) : 1;
+  return n !== 1 ? n * getFactorial(n - 1) : 1;
 }
-
 
 /**
  * Returns the sum of integer numbers between n1 and n2 (inclusive).
@@ -306,8 +307,19 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i <= str.length; i++) {
+    // eslint-disable-next-line no-param-reassign
+    str = str.replaceAll('<>', '');
+    // eslint-disable-next-line no-param-reassign
+    str = str.replaceAll('()', '');
+    // eslint-disable-next-line no-param-reassign
+    str = str.replaceAll('[]', '');
+    // eslint-disable-next-line no-param-reassign
+    str = str.replaceAll('{}', '');
+  }
+  return str.length === 0;
 }
 
 /**
