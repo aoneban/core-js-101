@@ -481,8 +481,17 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  const newArr = [];
+  const x = start - end - 1;
+  const arr = new Array(Math.abs(x)).fill(start);
+  // eslint-disable-next-line array-callback-return
+  arr.reduce((acc, item, ind) => {
+    // eslint-disable-next-line no-param-reassign
+    acc = ind + item;
+    newArr.push(acc);
+  }, 0);
+  return newArr;
 }
 
 /**
