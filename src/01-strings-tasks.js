@@ -198,8 +198,17 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const lineStart = `┌${Array(width - 2)
+    .fill('─')
+    .join('')}┐\n`;
+  const lineCenter = `│${Array(width - 2)
+    .fill(' ')
+    .join('')}│\n`;
+  const lineEnd = `└${Array(width - 2)
+    .fill('─')
+    .join('')}┘\n`;
+  return lineStart + lineCenter.repeat(height - 2) + lineEnd;
 }
 
 /**
@@ -218,8 +227,26 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const n = str.slice(-1);
+  const item = [];
+  const a = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+  const b = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'.split('');
+  str
+    .split('')
+    .map((el) => b[a.indexOf(el)])
+    .map((el) => {
+      if (typeof el === 'undefined') {
+        item.push(' ');
+      } else {
+        item.push(el);
+      }
+      return el;
+    });
+  if (n === '!' || n === '?') {
+    return item.join('').trim() + n;
+  }
+  return item.join('');
 }
 
 /**
@@ -322,11 +349,11 @@ function getCardId(value) {
     'Q♠',
     'K♠',
   ];
-  // eslint-disable-next-line array-callback-return
   arr.map((el, ind) => {
     if (el === value) {
       index += ind;
     }
+    return index;
   });
   return index;
 }

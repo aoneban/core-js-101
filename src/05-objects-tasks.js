@@ -23,9 +23,7 @@
 function Rectangle(width, height) {
   this.width = width;
   this.height = height;
-
-  // eslint-disable-next-line func-names
-  Rectangle.prototype.getArea = function () {
+  Rectangle.prototype.getArea = function funcRect() {
     return this.width * this.height;
   };
 }

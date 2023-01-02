@@ -112,8 +112,10 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+  return Math.acos(
+    ((x1 * x2 + y1 * y2) / (x1 ** 2 + y1 ** 2)) * (x2 ** 2 + y2 ** 2),
+  );
 }
 
 /**
@@ -183,20 +185,17 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  if (pow === 1) {
-    // eslint-disable-next-line no-param-reassign
-    pow = 10;
-  } else if (pow === 2) {
-    // eslint-disable-next-line no-param-reassign
-    pow = 100;
-  } else if (pow === 3) {
-    // eslint-disable-next-line no-param-reassign
-    pow = 1000;
-  } else if (pow === 0) {
-    // eslint-disable-next-line no-param-reassign
-    pow = 0.1;
+  let value = pow;
+  if (value === 1) {
+    value = 10;
+  } else if (value === 2) {
+    value = 100;
+  } else if (value === 3) {
+    value = 1000;
+  } else if (value === 0) {
+    value = 0.1;
   }
-  return Math.round(num / pow) * pow;
+  return Math.round(num / value) * value;
 }
 
 /**
@@ -241,9 +240,8 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  const x = Number(value);
   // eslint-disable-next-line no-restricted-globals
-  return isNaN(x) ? def : x;
+  return isNaN(Number(value)) ? def : Number(value);
 }
 
 module.exports = {

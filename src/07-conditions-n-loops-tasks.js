@@ -66,8 +66,12 @@ function getFactorial(n) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  const result = [];
+  for (let i = n1; i <= n2; i += 1) {
+    result.push(i);
+  }
+  return result.reduce((acc, elem) => acc + elem);
 }
 
 /**
@@ -153,8 +157,9 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  return (
+    (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 < circle.radius ** 2);
 }
 
 /**
@@ -171,11 +176,11 @@ function isInsideCircle(/* circle, point */) {
 function findFirstSingleChar(str) {
   const result = [];
   const x = str.split('');
-  // eslint-disable-next-line array-callback-return
-  x.map((el, ind, arr) => {
+  x.map((el, _, arr) => {
     if (arr.indexOf(el) === arr.lastIndexOf(el)) {
       result.push(el);
     }
+    return result;
   });
   return result.length > 0 ? result[0] : null;
 }
@@ -202,8 +207,33 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  // eslint-disable-next-line array-callback-return, consistent-return
+  const newArr = [a, b, isStartIncluded, isEndIncluded].sort((c, d) => {
+    if (typeof c === 'number' && typeof d === 'number') {
+      return c - d;
+    }
+  });
+  let result = '';
+  const start = '[';
+  const finish = ']';
+  const startTwo = '(';
+  const finishTwo = ')';
+  if (newArr[2] === true) {
+    result += start;
+    result += `${newArr[0]}, `;
+    result += newArr[1];
+  } else if (newArr[2] === false) {
+    result += startTwo;
+    result += `${newArr[0]}, `;
+    result += newArr[1];
+  }
+  if (newArr[3] === true) {
+    result += finish;
+  } else if (newArr[3] === false) {
+    result += finishTwo;
+  }
+  return result;
 }
 
 /**
@@ -308,18 +338,14 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i <= str.length; i++) {
-    // eslint-disable-next-line no-param-reassign
-    str = str.replaceAll('<>', '');
-    // eslint-disable-next-line no-param-reassign
-    str = str.replaceAll('()', '');
-    // eslint-disable-next-line no-param-reassign
-    str = str.replaceAll('[]', '');
-    // eslint-disable-next-line no-param-reassign
-    str = str.replaceAll('{}', '');
+  let x = str;
+  for (let i = 0; i <= x.length; i += 1) {
+    x = x.replaceAll('<>', '');
+    x = x.replaceAll('()', '');
+    x = x.replaceAll('[]', '');
+    x = x.replaceAll('{}', '');
   }
-  return str.length === 0;
+  return x.length === 0;
 }
 
 /**
